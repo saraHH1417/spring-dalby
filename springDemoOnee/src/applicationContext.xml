@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Define your beans here -->
+    <bean id="myFortuneService"
+           class="com.sara.springDemo.HappyFortuneService">
+    </bean>
+    <bean id="myCoach"
+          class="com.sara.springDemo.TrackCoach">
+        <!-- Set up  constructor injection -->
+        <constructor-arg ref="myFortuneService" />
+    </bean>
+    <bean id="myCricketCoach"
+          class="com.sara.springDemo.CricketCoach">
+        <!-- Setup setter injection // name refers to the method name and ref shows the service bean name that we defined
+            previously-->
+        <!--When we add property the method will run by itself when we call the bean -->
+        <property name="FortuneService" ref="myFortuneService"/>
+
+        <!-- Inject literal values -->
+        <property name="emailAddress" value="theBestProgress@luvToCode.com"/>
+        <property name="team" value="Heroes"/>
+    </bean>
+</beans>
+
+
+
+
+
