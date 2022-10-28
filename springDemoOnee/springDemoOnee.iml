@@ -6,6 +6,8 @@
         <fileset id="fileset" name="ApplicationContext" removed="false">
           <file>file://$MODULE_DIR$/src/com/sara/springDemo/applicationContext.xml</file>
           <file>file://$MODULE_DIR$/src/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/beanScope-applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/beanLifeCycle-applicationContext.xml</file>
         </fileset>
       </configuration>
     </facet>
