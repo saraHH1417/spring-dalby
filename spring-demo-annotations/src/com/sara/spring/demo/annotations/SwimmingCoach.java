@@ -2,9 +2,12 @@ package com.sara.spring.demo.annotations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component  // Here we use the default bean id which turns the first class name which is capital to the small letter
+@Component
+@Scope("prototype")
+// Here we use the default bean id which turns the first class name which is capital to the small letter
 public class SwimmingCoach implements Coach{
     private FortuneService fortuneService;
 
@@ -26,4 +29,6 @@ public class SwimmingCoach implements Coach{
     public String getDailyFortune() {
         return fortuneService.getFortune();
     }
+
+
 }
