@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/springDalby.iml" filepath="$PROJECT_DIR$/.idea/springDalby.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springDalby.iml" filepath="$PROJECT_DIR$/springDalby.iml" />
     </modules>
   </component>
 </project>

@@ -4,23 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component("theSillyCoach")
+@Component
 
-public class TennisCoach implements Coach{
+public class ChessCoach implements Coach{
     private FortuneService fortuneService;
-
-    @Autowired
-    public TennisCoach(@Qualifier("databaseFortuneService") FortuneService theFortuneService) {
-        fortuneService = theFortuneService;
-    }
     @Override
     public String getDailyWorkout() {
-        return "practice your backend volley";
+        return "You know practicing chess makes the brain stronger, so the more practice the better";
     }
 
-    //define a setter method
-
-
+    @Autowired
+    @Qualifier("randomService")
+    public void doSomeCrazyStuff(FortuneService theFortuneService) {
+        System.out.println("Autowiring; inside doSomeCrazyStuff method");
+        fortuneService = theFortuneService;
+    }
     @Override
     public String getDailyFortune() {
         return fortuneService.getFortune();
