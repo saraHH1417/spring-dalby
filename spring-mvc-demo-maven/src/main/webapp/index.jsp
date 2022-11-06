@@ -9,6 +9,9 @@
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
-<a href="main">Main menu page</a>
+<hr>
+<a href="main">Home page</a>
+<hr>
+<a href="main-menu">Main Menu Page</a>
 </body>
 </html>
