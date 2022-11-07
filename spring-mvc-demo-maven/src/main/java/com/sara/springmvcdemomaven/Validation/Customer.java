@@ -1,6 +1,8 @@
 package com.sara.springmvcdemomaven.Validation;
 
 
+import com.sara.springmvcdemomaven.CustomValidation.CourseCode;
+
 import javax.validation.constraints.*;
 
 public class Customer {
@@ -19,6 +21,9 @@ public class Customer {
     @Pattern(regexp ="^[a-zA-Z0-9]{5}" , message = "only 5 characters/digits")
     private String postalCode;
 
+    @CourseCode
+    private String CourseCode;
+
     public String getFirstName() {
         return firstName;
     }
@@ -35,6 +40,10 @@ public class Customer {
         return postalCode;
     }
 
+    public String getCourseCode() {
+        return CourseCode;
+    }
+
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
@@ -49,5 +58,8 @@ public class Customer {
 
     public void setFreePasses(Integer freePasses) {
         this.freePasses = freePasses;
+    }
+    public void setCourseCode(String courseCode) {
+        CourseCode = courseCode;
     }
 }

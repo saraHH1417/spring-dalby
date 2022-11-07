@@ -14,5 +14,6 @@
     <h4>The customer is confirmed: ${customer.firstName} ${customer.lastName}</h4>
     <h4>Free passes: ${customer.freePasses}</h4>
     <h4>Postal Code: ${customer.postalCode}</h4>
+    <h4>Course Code: ${customer.courseCode}</h4>
 </body>
 </html>
