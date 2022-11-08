@@ -1,9 +1,6 @@
 package com.sara.hibernatetutorial;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.lang.annotation.Target;
 
@@ -12,6 +9,7 @@ import java.lang.annotation.Target;
 public class Student {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -30,6 +28,11 @@ public class Student {
         this.lastName = lastName;
         this.email = email;
     }
+
+    public Student() {
+
+    }
+
 
     public int getId() {
         return id;
