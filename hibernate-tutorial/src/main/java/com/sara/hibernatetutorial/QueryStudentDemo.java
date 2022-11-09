@@ -23,7 +23,7 @@ public class QueryStudentDemo {
             session.beginTransaction();
 
             // query students
-            TypedQuery<Student> studentQuery = session.createQuery("from Student ");
+            TypedQuery<Student> studentQuery = session.createQuery("from Student ", Student.class);
             List<Student> theStudents = studentQuery.getResultList();
 //            List<Student> students = session.createQuery("from Student ").getResultList();
             // display the students
@@ -31,7 +31,9 @@ public class QueryStudentDemo {
             displayStudents(theStudents);
 
             // query students firstName = "Paul"
-            List<Student> newStudents = session.createQuery("from Student s where s.firstName = 'Paul'").getResultList();
+            List<Student> newStudents = session
+                    .createQuery("from Student s where s.firstName = 'Paul'", Student.class)
+                    .getResultList();
 
             // display the students
             System.out.println("\n\nStudent who have first name of Paul");
@@ -41,7 +43,8 @@ public class QueryStudentDemo {
             System.out.println("\n\nStudents who have lastName of 'Doe' Or firstName = 'Paul'");
             List<Student> DoePaulStudents = session
                     .createQuery("from Student s where s.lastName = 'Doe'" +
-                    "OR s.firstName = 'Paul'")
+                    "OR s.firstName = 'Paul'"
+                    , Student.class)
                     .getResultList();
             displayStudents(DoePaulStudents);
 
@@ -49,7 +52,8 @@ public class QueryStudentDemo {
             // query students with email
             System.out.println("\n\nQuery students by their email");
             List<Student> emailStudents= session
-                    .createQuery("from Student s where s.email like '%gmmail.com'")
+                    .createQuery("from Student s where s.email like '%gmmail.com'"
+                    , Student.class)
                     .getResultList();
             displayStudents(emailStudents);
 
