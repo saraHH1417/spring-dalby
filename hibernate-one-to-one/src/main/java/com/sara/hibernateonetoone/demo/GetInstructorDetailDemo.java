@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class DeleteDemo {
+public class GetInstructorDetailDemo {
     public static void main(String[] args) {
         SessionFactory sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -18,23 +18,23 @@ public class DeleteDemo {
 
         try {
             session.beginTransaction();
-            int theId = 1;
-            Instructor tempInstructor= session.get(Instructor.class, theId);
 
-            if (tempInstructor != null) {
-                System.out.println("Found instructor with id: " + theId);
-                // the below line also details the associated details object
-                // becuase the cascade type is all
-                session.delete(tempInstructor);
-            } else {
-                System.out.println("Instructor doesn't exist");
-            }
+            int theId = 2545;
+            InstructorDetail tempInstructorDetail = session.get(InstructorDetail.class, theId);
 
-        } finally {
+            System.out.println("Temp Instructor Detail: " + tempInstructorDetail);
+            System.out.println("The associated instructor: " + tempInstructorDetail.getInstructor());
+
+            session.getTransaction().commit();
+
+            System.out.println("Done!");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        finally {
             // handle connection leak issue
             session.close();
             sessionFactory.close();
         }
-
     }
 }
