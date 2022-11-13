@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CustomerController {
-
-
     @RequestMapping(name = "customers-list" ,value = "/customers-list")
     public String listCustomers() {
         System.out.println("Hello");
