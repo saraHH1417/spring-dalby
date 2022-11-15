@@ -18,10 +18,6 @@ public class CustomerController {
     @RequestMapping(name = "customers-list", value = "/list")
     public String listCustomers(Model theModel) {
         List<Customer> customers = customerDao.getCustomers();
-        for (Customer customer: customers) {
-            System.out.println(customer);
-            System.out.println(customer.getFirstName());
-        }
         theModel.addAttribute("customers",customers);
         return "list-customers";
     }
