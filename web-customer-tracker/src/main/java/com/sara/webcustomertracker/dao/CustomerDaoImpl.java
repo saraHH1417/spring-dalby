@@ -30,7 +30,7 @@ public class CustomerDaoImpl implements CustomerDao{
         }
 
         // create a query
-        Query<Customer> theQuery = session.createQuery("from Customer", Customer.class);
+        Query<Customer> theQuery = session.createQuery("from Customer order by lastName", Customer.class);
         // execute the query and get the result
         List<Customer> customers = theQuery.getResultList();
         for (Object customer:
@@ -39,5 +39,16 @@ public class CustomerDaoImpl implements CustomerDao{
         }
         // return the results
         return customers;
+    }
+
+    public void saveCustomer(Customer theCustomer) {
+        Session session = null;
+        try {
+            session = sessionFactory.getCurrentSession();
+        } catch (HibernateException e) {
+            session = sessionFactory.openSession();
+        }
+
+        session.save(theCustomer);
     }
 }
