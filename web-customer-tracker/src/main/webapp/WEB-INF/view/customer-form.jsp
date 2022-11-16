@@ -26,6 +26,8 @@
     <div id="container">
         <h3>Save Customer</h3>
         <form:form action="saveCustomer" modelAttribute="customer" method="post">
+            <!-- the below line is necessary for update because it will add the id to the customer data -->
+            <form:hidden path="id"/>
             <table>
                 <tbody>
                    <tr>

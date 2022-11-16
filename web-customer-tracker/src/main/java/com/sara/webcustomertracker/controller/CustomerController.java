@@ -1,6 +1,5 @@
 package com.sara.webcustomertracker.controller;
 
-import com.sara.webcustomertracker.dao.CustomerDao;
 import com.sara.webcustomertracker.entity.Customer;
 import com.sara.webcustomertracker.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,18 @@ public class CustomerController {
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+        System.out.println(customer);
+        System.out.println(customer.getId());
         customerService.saveCustomer(customer);
         return "redirect:/customers/list";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel) {
+        Customer theCustomer = customerService.getCustomer(theId);
+
+        theModel.addAttribute("customer", theCustomer);
+
+        return "customer-form";
     }
 }

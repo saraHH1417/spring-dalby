@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-@Transactional
 public class CustomerDaoImpl implements CustomerDao{
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,13 +20,7 @@ public class CustomerDaoImpl implements CustomerDao{
 
     @Override
     public List<Customer> getCustomers() {
-        // get the current hibernate session
-        Session session = null;
-        try {
-            session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            session = sessionFactory.openSession();
-        }
+        Session session = getSession(sessionFactory);
 
         // create a query
         Query<Customer> theQuery = session.createQuery("from Customer order by lastName", Customer.class);
@@ -42,13 +35,40 @@ public class CustomerDaoImpl implements CustomerDao{
     }
 
     public void saveCustomer(Customer theCustomer) {
+        Session session = getSession(sessionFactory);
+        // apparently the saveOrUpdate method doesn't work, so for now I use another way
+        // for updating until I figure out why saveOrUpdate doesn't work
+        Customer previousCustomer = session.get(Customer.class, theCustomer.getId());
+        if (previousCustomer != null) {
+            System.out.println("existssssssssssssssssss");;
+            previousCustomer.setFirstName(theCustomer.getFirstName());
+            previousCustomer.setLastName(theCustomer.getLastName());
+            previousCustomer.setEmail(theCustomer.getEmail());
+            System.out.println(previousCustomer);
+            session.save(previousCustomer);
+            session.update(previousCustomer);
+        }  else {
+            session.save(theCustomer);
+        }
+//        session.saveOrUpdate(theCustomer);
+    }
+
+    @Override
+    public Customer getCustomer(int theId) {
+
+        Session session = getSession(sessionFactory);
+        return session.get(Customer.class, theId);
+    }
+
+
+    private Session getSession(SessionFactory sessionFactory) {
         Session session = null;
+
         try {
             session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             session = sessionFactory.openSession();
         }
-
-        session.save(theCustomer);
+        return session;
     }
 }
