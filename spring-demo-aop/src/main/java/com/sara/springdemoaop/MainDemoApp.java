@@ -23,6 +23,13 @@ public class MainDemoApp {
         theAccountDAO.premiumAccount();
 
         membershipDAO.premiumAccount();
+
+        System.out.println("\nTesting match method parameters:");
+        Account account = new Account();
+        theAccountDAO.addAccountWithParam(account);
+        theAccountDAO.addAccountWithMultipleParam(account, true);
+        theAccountDAO.beforeAllPackageMethodsAspect();
+
         context.close();
 
     }

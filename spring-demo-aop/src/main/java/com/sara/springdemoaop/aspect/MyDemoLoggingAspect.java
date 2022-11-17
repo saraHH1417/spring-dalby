@@ -34,7 +34,23 @@ public class MyDemoLoggingAspect {
         System.out.println("\n======> Executing @Before advice on all methods that start with add (* add*())");
     }
 
+    @Before("execution(* add*(com.sara.springdemoaop.Account))")
+    public void beforeAddAccountWithParamAdvice() {
+        System.out.println("\n==========> Executing @Before advice on methods that their name start with add and have" +
+                " the account parameter");
+    }
 
+    @Before("execution(* add*(com.sara.springdemoaop.Account, ..))")
+    public void beforeAddAccountWithMultipleParam() {
+        System.out.println("\n=======> Executing @Before advice on methods which has an account param and" +
+                " any other param");
+    }
+
+    @Before("execution(* com.sara.springdemoaop.dao.*.*(..))")
+    public void beforeAddAllAccountAdvice() {
+        System.out.println("\n==========> Executing @Before advice on all methods in a package with any name," +
+                " any return type and any parameters");
+    }
 }
 
 
