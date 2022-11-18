@@ -30,8 +30,7 @@ public class MyDemoLoggingAspect {
              result = proceedingJoinPoint.proceed();
          } catch (Exception exception) {
              myLogger.warning(exception.getMessage());
-
-             result = "Major Accident! But no worries, Your AOP helicopter is on the way";
+             throw  exception;
          }
 
         long endTime = System.currentTimeMillis();
