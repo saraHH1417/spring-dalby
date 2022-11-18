@@ -4,7 +4,7 @@ import com.sara.springdemoaoppointcutdeclaration.dao.AccountDAO;
 import com.sara.springdemoaoppointcutdeclaration.dao.MembershipDAO;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class MainDemoApp {
+public class BeforeAspectMainDemoApp {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(DemoConfig.class);
