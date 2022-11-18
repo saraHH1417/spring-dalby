@@ -28,6 +28,14 @@ public class AccountDAO {
         return myAccounts;
     }
 
+    public List<Account> findAccountsParam(boolean tripWire) {
+        // this exception is for simulating throwing exceptions and only for academic purposes
+        if (tripWire) {
+            throw  new RuntimeException("No soup for you!");
+        }
+        return null;
+    }
+
     public void addAccount() {
         System.out.println(getClass() + " :Doing my db work, adding an account on AccountDao class");
     }

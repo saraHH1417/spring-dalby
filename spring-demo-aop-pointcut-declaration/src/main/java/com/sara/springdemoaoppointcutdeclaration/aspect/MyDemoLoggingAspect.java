@@ -3,10 +3,7 @@ package com.sara.springdemoaoppointcutdeclaration.aspect;
 
 import com.sara.springdemoaoppointcutdeclaration.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -17,6 +14,18 @@ import java.util.List;
 @Component
 @Order(2)
 public class MyDemoLoggingAspect {
+
+    @AfterThrowing(
+            pointcut = "execution(* com.sara.springdemoaoppointcutdeclaration.dao.AccountDAO.findAccountsParam(..))",
+            throwing = "theExc"
+    )
+    public void afterThrowingFindAccountAdvice(JoinPoint joinPoint, Throwable theExc) {
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("\n==========> Executing @AfterThrowing on method: " + method);
+
+        // log rh exception
+        System.out.println("\n==========> THe exception is: " + theExc);
+    }
 
     // add anew advice for @AfterReturning on the findAccount method
     @AfterReturning(
