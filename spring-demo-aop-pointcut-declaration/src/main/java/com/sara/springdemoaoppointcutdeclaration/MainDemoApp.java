@@ -26,6 +26,8 @@ public class MainDemoApp {
 
         System.out.println("\nTesting match method parameters:");
         Account account = new Account();
+        account.setName("Sara");
+        account.setLevel("Perfect");
         theAccountDAO.addAccountWithParam(account);
         theAccountDAO.addAccountWithMultipleParam(account, true);
         theAccountDAO.beforeAllPackageMethodsAspect();
