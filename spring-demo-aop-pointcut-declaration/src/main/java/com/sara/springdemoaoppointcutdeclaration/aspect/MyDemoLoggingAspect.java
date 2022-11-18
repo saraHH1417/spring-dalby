@@ -3,17 +3,61 @@ package com.sara.springdemoaoppointcutdeclaration.aspect;
 
 import com.sara.springdemoaoppointcutdeclaration.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Aspect
 @Component
 @Order(2)
 public class MyDemoLoggingAspect {
+    private Logger myLogger = Logger.getLogger(getClass().getName());
+
+    @Around("execution(* com.sara.springdemoaoppointcutdeclaration.service" +
+            ".TrafficFortuneService.getFortuneParam(..))")
+    public Object aroundGetFortuneParam(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        String method = proceedingJoinPoint.getSignature().toShortString();
+        myLogger.info("\n======> Executing @Around on method: " + method);
+
+        long beginTime = System.currentTimeMillis();
+        Object result = null;
+         try {
+             result = proceedingJoinPoint.proceed();
+         } catch (Exception exception) {
+             myLogger.warning(exception.getMessage());
+
+             result = "Major Accident! But no worries, Your AOP helicopter is on the way";
+         }
+
+        long endTime = System.currentTimeMillis();
+
+        long duration = endTime - beginTime;
+        myLogger.info("\n=======> Duration: " + duration/ 1000.0 + " seconds");
+
+        return result;
+    }
+
+    @Around("execution(* com.sara.springdemoaoppointcutdeclaration.service.TrafficFortuneService.getFortune(..))")
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        String method = proceedingJoinPoint.getSignature().toShortString();
+        myLogger.info("\n======> Executing @Around on method: " + method);
+
+        long beginTime = System.currentTimeMillis();
+        Object result = proceedingJoinPoint.proceed();
+
+        long endTime = System.currentTimeMillis();
+
+        long duration = endTime - beginTime;
+        myLogger.info("\n=======> Duration: " + duration/ 1000.0 + " seconds");
+
+        return result;
+    }
+
 
     @After("execution(* com.sara.springdemoaoppointcutdeclaration.dao.AccountDAO.findAccountsParam(..))")
     public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
