@@ -18,19 +18,24 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser(users.username("john").password("1234").roles("EMPLOYEE"))
                 .withUser(users.username("mary").password("1234").roles("MANAGER"))
-                .withUser(users.username("sara").password("12345").roles("ADMIN", "MANAGER", "ADMIN"));
+                .withUser(users.username("sara").password("12345").roles("ADMIN", "MANAGER", "ADMIN", "EMPLOYEE"));
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()\
+                .antMatchers("/").hasRole("EMPLOYEE")
+                .antMatchers("/leaders/**").hasRole("MANAGER")
+                .antMatchers("/systems/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/showCustomLoginPage")
                 .loginProcessingUrl("/authenticateTheUser")
                 .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/access-denied");
     }
 }

@@ -8,18 +8,34 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-    Welcome to sara great company home page! :))))))))))))
-    <p>
-      User: <security:authentication property="principal.username" />
-      Role (s): <security:authentication property="principal.authorities" />
-    </p>
-<hr>
-    <form:form  action="${pageContext.request.contextPath}/logout" method="POST">
-        <input type="submit" value="Logout" />
-    </form:form>
-<br>
-<a href="hello-servlet">Hello Servlet</a>
+    <h1><%= "Hello World!" %>
+    </h1>
+        Welcome to sara great company home page! :))))))))))))
+        <p>
+          User: <security:authentication property="principal.username" />
+          Role (s): <security:authentication property="principal.authorities" />
+        </p>
+
+    <security:authorize access="hasRole('MANAGER')">
+        <hr>
+        <p>
+            <a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+            (Only for manager peers)
+        </p>
+    </security:authorize>
+
+    <security:authorize access="hasRole('ADMIN')">
+        <hr>
+        <p>
+            <a href="${pageContext.request.contextPath}/systems">IT systems Meeting</a>
+            (Only for Admin peers)
+        </p>
+    </security:authorize>
+    <hr>
+        <form:form  action="${pageContext.request.contextPath}/logout" method="POST">
+            <input type="submit" value="Logout" />
+        </form:form>
+    <br>
+    <a href="hello-servlet">Hello Servlet</a>
 </body>
 </html>
