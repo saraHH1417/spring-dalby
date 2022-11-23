@@ -11,5 +11,8 @@
 <a href="hello-servlet">Hello Servlet</a>
 <br>
 <a href="test/hello">Test Hello Page</a>
+<%--<a href="${pageContext.request.contextPath}/test/hello">Test Hello Page</a>--%>
+<br>
+<a href="${pageContext.request.contextPath}/api/students">List All Students</a>
 </body>
 </html>
