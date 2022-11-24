@@ -1,4 +1,4 @@
-package com.luv2code.springdemo.config;
+package com.sara.springcrmrest.config;
 
 import java.beans.PropertyVetoException;
 import java.util.Properties;
@@ -16,18 +16,15 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan("com.luv2code.springdemo")
+@ComponentScan("com.sara.springcrmrest")
 @PropertySource({ "classpath:persistence-mysql.properties" })
 public class DemoAppConfig implements WebMvcConfigurer {
 
@@ -36,8 +33,6 @@ public class DemoAppConfig implements WebMvcConfigurer {
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
 	
-	// define a bean for ViewResolver
-
 	@Bean
 	public DataSource myDataSource() {
 		
@@ -46,7 +41,7 @@ public class DemoAppConfig implements WebMvcConfigurer {
 
 		// set the jdbc driver
 		try {
-			myDataSource.setDriverClass("com.mysql.jdbc.Driver");		
+			myDataSource.setDriverClass(env.getProperty("jdbc.driver"));
 		}
 		catch (PropertyVetoException exc) {
 			throw new RuntimeException(exc);
