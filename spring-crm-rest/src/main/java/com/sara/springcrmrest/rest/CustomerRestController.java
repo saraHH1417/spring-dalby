@@ -3,10 +3,7 @@ package com.sara.springcrmrest.rest;
 import com.sara.springcrmrest.entity.Customer;
 import com.sara.springcrmrest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,12 @@ public class CustomerRestController {
         return customer;
     }
 
+    @PostMapping("/customers")
+    public Customer addCustomer(@RequestBody Customer customer) {
+        customer.setId(0); // for forcing to create a new record instead of updating
+        customerService.saveCustomer(customer);
+
+        return customer;
+    }
 
 }
