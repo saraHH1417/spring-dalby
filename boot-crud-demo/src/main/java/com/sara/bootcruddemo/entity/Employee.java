@@ -19,7 +19,7 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-    private Employee() {
+    public Employee() {
 
     }
 
@@ -28,6 +28,7 @@ public class Employee {
         this.lastName = lastName;
         this.email = email;
     }
+
 
     public void setId(int id) {
         this.id = id;
