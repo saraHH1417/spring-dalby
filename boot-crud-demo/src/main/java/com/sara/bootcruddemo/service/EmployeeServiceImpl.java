@@ -4,6 +4,7 @@ package com.sara.bootcruddemo.service;
 import com.sara.bootcruddemo.dao.EmployeeDAO;
 import com.sara.bootcruddemo.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     public EmployeeDAO employeeDAO;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeDAO theEmployeeDao) {
+    public EmployeeServiceImpl(
+            @Qualifier("employeeDAOJPAImpl") EmployeeDAO theEmployeeDao) {
         employeeDAO = theEmployeeDao;
     }
 
