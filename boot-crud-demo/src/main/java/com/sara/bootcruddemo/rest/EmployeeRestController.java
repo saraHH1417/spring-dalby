@@ -1,12 +1,12 @@
 package com.sara.bootcruddemo.rest;
 
-import com.sara.bootcruddemo.dao.EmployeeDAO;
 import com.sara.bootcruddemo.entity.Employee;
 import com.sara.bootcruddemo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -25,14 +25,13 @@ public class EmployeeRestController {
     }
 
     @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId) {
-        Employee theEmployee = employeeService.findById(employeeId);
+    public Optional<Employee> getEmployee(@PathVariable int employeeId) {
+        Optional<Employee> theEmployee = employeeService.findById(employeeId);
 
-        if(theEmployee == null) {
+        if(theEmployee.isEmpty()) {
            throw new RuntimeException("Employee with id " + employeeId + " not found.");
         }
-
-        return theEmployee;
+        return  theEmployee;
     }
 
     @PostMapping("/employees")
@@ -54,9 +53,9 @@ public class EmployeeRestController {
 
     @DeleteMapping("/employees/{employeeId}")
     public String deleteEmployee(@PathVariable int employeeId) {
-        Employee tempEmployee = employeeService.findById(employeeId);
+        Optional<Employee> tempEmployee = employeeService.findById(employeeId);
 
-        if(tempEmployee == null) {
+        if(tempEmployee.isEmpty()) {
             throw new RuntimeException("Employee with id " + employeeId + " not found.");
         }
 

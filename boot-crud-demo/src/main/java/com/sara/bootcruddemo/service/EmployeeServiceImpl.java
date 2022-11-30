@@ -1,48 +1,42 @@
 package com.sara.bootcruddemo.service;
 
 
-import com.sara.bootcruddemo.dao.EmployeeDAO;
+import com.sara.bootcruddemo.dao.EmployeeRepository;
 import com.sara.bootcruddemo.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
-    public EmployeeDAO employeeDAO;
+    public EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeServiceImpl(
-            @Qualifier("employeeDAOJPAImpl") EmployeeDAO theEmployeeDao) {
-        employeeDAO = theEmployeeDao;
+    public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository) {
+        employeeRepository = theEmployeeRepository;
     }
 
 
     @Override
-    @Transactional
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeRepository.findAll();
     }
 
     @Override
-    @Transactional
-    public Employee findById(int theId) {
-        return employeeDAO.findById(theId);
+    public Optional<Employee> findById(int theId) {
+        return employeeRepository.findById(theId);
     }
 
     @Override
-    @Transactional
     public void save(Employee theEmployee) {
-        employeeDAO.save(theEmployee);
+        employeeRepository.save(theEmployee);
     }
 
     @Override
-    @Transactional
     public void deleteById(int theId) {
-        employeeDAO.deleteById(theId);
+        employeeRepository.deleteById(theId);
     }
 }
