@@ -1,38 +1,61 @@
 package com.sara.thymeleafdemo.controller;
 
-import com.sara.thymeleafdemo.model.Employee;
-import jakarta.annotation.PostConstruct;
+import com.sara.thymeleafdemo.entity.Employee;
+import com.sara.thymeleafdemo.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.lang.module.ModuleReader;
 import java.util.List;
-import java.util.WeakHashMap;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
-    private List<Employee> theEmployees;
+    private EmployeeService employeeService;
 
-    @PostConstruct
-    private void loadDate() {
-        Employee employee1 = new Employee(1, "sara", "afzar", "sara.afzar@gmailcom");
-        Employee employee2 = new Employee(2, "ds", "hgh", "sd@gmail.com");
-        Employee employee3 = new Employee(3, "sara", "afzar", "sara.afzar@gmailcom");
-        Employee employee4 = new Employee(4, "sara", "afzar", "sara.afzar@gmailcom");
-        theEmployees = new ArrayList<>();
-
-        theEmployees.add(employee1);
-        theEmployees.add(employee2);
-        theEmployees.add(employee3);
-        theEmployees.add(employee4);
+    @Autowired
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
+
+
 
     @GetMapping("/list")
     public String listEmployees(Model theModel) {
-        theModel.addAttribute("employees", theEmployees);
-        return "list-employees";
+
+        List<Employee> employees = employeeService.findAll();
+
+        theModel.addAttribute("employees", employees);
+        return "employees/list-employees";
+    }
+
+    @GetMapping("/showFormForAdd")
+    public String showFormForAdd(Model theModel) {
+       Employee employee = new Employee();
+       theModel.addAttribute("employee", employee);
+       return  "employees/employee-form";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("employeeId") int theId, Model theModel) {
+        Optional<Employee> employee = employeeService.findById(theId);
+        theModel.addAttribute("employee", employee);
+        return "employees/employee-form";
+    }
+
+    @PostMapping("/save")
+    public String saveEmployee(@ModelAttribute("Employee") Employee employee) {
+        employeeService.save(employee);
+
+        return "redirect:/employees/list";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("employeeId") int theId) {
+        employeeService.deleteById(theId);
+        return "redirect:/employees/list";
     }
 }
